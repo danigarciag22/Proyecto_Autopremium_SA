@@ -1,72 +1,109 @@
 package autopremium.main;
 
+import autopremium.estructuras.Cola;
+import autopremium.estructuras.Pila;
 import autopremium.mundo.Automovil;
 import autopremium.mundo.Motocicleta;
-import autopremium.servicios.ServicioAutopremium;
+import autopremium.mundo.Nodo;
+import autopremium.util.Validaciones;
 import javax.swing.JOptionPane;
 
 public class Main {
+
     public static void main(String[] args) {
+        // --- INSTANCIAS ÚNICAS DE LAS ESTRUCTURAS ---
+        // Se crean aquí para que vivan durante toda la ejecución del programa
+        Pila pilaAutos = new Pila();
+        Cola colaMotos = new Cola();
 
-        // 1. Instanciamos el servicio (La lógica)
-        ServicioAutopremium servicio = new ServicioAutopremium();
         int opcion = 0;
-
         do {
-            try {
-                String input = JOptionPane.showInputDialog(null,
-                        "AUTOPREMIUM S.A. (Versión POO con Herencia)\n\n" +
-                                "1. Registrar Automóvil\n" +
-                                "2. Registrar Motocicleta\n" +
-                                "3. Ver Reportes\n" +
-                                "4. Salir\n\nElija una opción:");
+            String menu = "MENU PRINCIPAL - AUTOPREMIUM S.A.\n" +
+                          "1. Manejo de estructuras (Pila y Cola)\n" +
+                          "2. Requisitos iniciales de usuario (Estadísticas)\n" +
+                          "3. Terminar o salir\n" +
+                          "--------------------------\n" +
+                          "Seleccione una opción:";
+            
+            opcion = Validaciones.leerEntero(menu);
 
-                if (input == null) break;
-                opcion = Integer.parseInt(input);
+            switch (opcion) {
+                case 1: // SUB-MENÚ DE ESTRUCTURAS
+                    int subOpcion = 0;
+                    do {
+                        String subMenu = "MANEJO DE ESTRUCTURAS\n" +
+                                         "1. Manejo de Pila (Autos)\n" +
+                                         "2. Manejo de Cola (Motos)\n" +
+                                         "6. Volver al menu principal";
+                        subOpcion = Validaciones.leerEntero(subMenu);
+                        
+                        if (subOpcion == 1) {
+                            ManejoPila.menu(pilaAutos);
+                        } else if (subOpcion == 2) {
+                            ManejoCola.menu(colaMotos);
+                        }
+                    } while (subOpcion != 6);
+                    break;
 
-                switch (opcion) {
-                    case 1:
-                        // Captura de datos (Vista)
-                        String plA = JOptionPane.showInputDialog("Placa:");
-                        String maA = JOptionPane.showInputDialog("Marca:");
-                        int moA = Integer.parseInt(JOptionPane.showInputDialog("Modelo (Año):"));
-                        double prA = Double.parseDouble(JOptionPane.showInputDialog("Precio:"));
-                        int puA = Integer.parseInt(JOptionPane.showInputDialog("Puertas:"));
+                case 2: // REQUISITOS (Cálculos recorriendo las estructuras)
+                    mostrarEstadisticas(pilaAutos, colaMotos);
+                    break;
 
-                        // Creación del objeto (Mundo)
-                        Automovil auto = new Automovil(plA, maA, moA, prA, puA);
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
+                    break;
 
-                        // Delegación a la lógica (Servicio)
-                        servicio.procesarAutomovil(auto);
-                        JOptionPane.showMessageDialog(null, "Automóvil procesado.");
-                        break;
-
-                    case 2:
-                        String plM = JOptionPane.showInputDialog("Placa:");
-                        String maM = JOptionPane.showInputDialog("Marca:");
-                        int moM = Integer.parseInt(JOptionPane.showInputDialog("Modelo (Año):"));
-                        double prM = Double.parseDouble(JOptionPane.showInputDialog("Precio:"));
-                        int ccM = Integer.parseInt(JOptionPane.showInputDialog("Cilindraje:"));
-
-                        Motocicleta moto = new Motocicleta(plM, maM, moM, prM, ccM);
-
-                        servicio.procesarMotocicleta(moto);
-                        JOptionPane.showMessageDialog(null, "Motocicleta procesada.");
-                        break;
-
-                    case 3:
-                        // Obtener datos del servicio para mostrar
-                        String reporte = "--- ESTADÍSTICAS ---\n" +
-                                "Promedio Autos: $" + servicio.calcularPromedioAutos() + "\n" +
-                                "Promedio Motos: $" + servicio.calcularPromedioMotos() + "\n\n" +
-                                servicio.obtenerReporteMotosPotentes();
-
-                        JOptionPane.showMessageDialog(null, reporte);
-                        break;
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error en datos: " + e.getMessage());
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida.");
             }
-        } while (opcion != 4);
+        } while (opcion != 3);
+    }
+
+    // Método auxiliar para calcular promedios recorriendo los Nodos
+    // Cumple con: "elabora los requisitos... en las pilas y colas con los datos adjudicados"
+    private static void mostrarEstadisticas(Pila pila, Cola cola) {
+        
+        // 1. Promedio Autos
+        double sumaAutos = 0;
+        int cantAutos = 0;
+        Nodo actualAuto = pila.getTope();
+        while (actualAuto != null) {
+            Automovil a = (Automovil) actualAuto.getDato();
+            sumaAutos += a.getPrecio();
+            cantAutos++;
+            actualAuto = actualAuto.getLigaDerecha();
+        }
+        double promAutos = (cantAutos > 0) ? sumaAutos / cantAutos : 0;
+
+        // 2. Promedio Motos y Listado > 1000cc
+        double sumaMotos = 0;
+        int cantMotos = 0;
+        String motosPotentes = "";
+        
+        Nodo actualMoto = cola.getCabeza();
+        while (actualMoto != null) {
+            Motocicleta m = (Motocicleta) actualMoto.getDato();
+            sumaMotos += m.getPrecio();
+            cantMotos++;
+            
+            if (m.getCilindraje() > 1000) {
+                motosPotentes += m.toString() + "\n";
+            }
+            actualMoto = actualMoto.getLigaDerecha();
+        }
+        double promMotos = (cantMotos > 0) ? sumaMotos / cantMotos : 0;
+
+        // Mostrar Reporte
+        String reporte = "--- REPORTE DE GESTIÓN ---\n\n" +
+                         "AUTOMÓVILES (En Pila):\n" +
+                         "Cantidad: " + cantAutos + "\n" +
+                         "Precio Promedio: $" + promAutos + "\n\n" +
+                         "MOTOCICLETAS (En Cola):\n" +
+                         "Cantidad: " + cantMotos + "\n" +
+                         "Precio Promedio: $" + promMotos + "\n\n" +
+                         "MOTOS DE ALTO CILINDRAJE (>1000cc):\n" +
+                         (motosPotentes.isEmpty() ? "Ninguna registrada." : motosPotentes);
+                         
+        JOptionPane.showMessageDialog(null, reporte);
     }
 }

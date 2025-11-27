@@ -1,33 +1,46 @@
-# 🚗 Proyecto Autopremium S.A. - Entrega 1
+# 🚗 Proyecto Autopremium S.A. - Entrega 2
 
-> **Estado del Proyecto:** Fase Inicial (POO + Herencia)  
-> **Rama:** `entrega-1-base-poo`
+> **Estado del Proyecto:** Estructuras de Datos Lineales (Pilas y Colas)
+> **Rama Actual:** \`entrega-2-pilas-colas\`
 
-Este proyecto implementa la solución inicial para la gestión de vehículos de la empresa **Autopremium S.A.**, cumpliendo estrictamente con los principios de Programación Orientada a Objetos (Encapsulamiento, Herencia y Modularidad).
+En esta segunda entrega, el sistema evoluciona de cálculos simples a **almacenamiento en memoria dinámica** utilizando punteros y nodos. Se implementan las estructuras solicitadas para la gestión eficiente de los vehículos.
 
-## 📋 Características de esta Entrega
+## 🏗️ Nuevas Características
 
-1.  **Arquitectura en Capas:**
-    * `autopremium.mundo`: Contiene las entidades (`Vehiculo`, `Automovil`, `Motocicleta`).
-    * `autopremium.servicios`: Lógica de negocio separada (`ServicioAutopremium`).
-    * `autopremium.main`: Interfaz de usuario (JOptionPane).
-2.  **Uso de Herencia:** Implementación de una superclase `Vehiculo` para evitar redundancia de código.
-3.  **Sin Almacenamiento Persistente:** Siguiendo la restricción de la entrega, **no se utilizan arreglos ni listas**. Los cálculos (promedios) se realizan "al vuelo" mediante acumuladores en la capa de servicio.
+1.  **Clase Nodo Universal:**
+    * Ubicación: \`autopremium.mundo.Nodo\`
+    * Función: Contenedor genérico (\`Object\`) que permite almacenar tanto Automóviles como Motocicletas.
 
-## 🧪 Datos de Prueba (Escenario Colombiano)
+2.  **Estructuras de Datos Implementadas:**
+    * **PILA (Stack):** Implementada para **Automóviles**.
+        * *Comportamiento:* LIFO (Last In, First Out - Último en entrar, primero en salir).
+        * *Métodos:* Push, Pop, Peek, IsEmpty.
+    * **COLA (Queue):** Implementada para **Motocicletas**.
+        * *Comportamiento:* FIFO (First In, First Out - Primero en entrar, primero en salir).
+        * *Métodos:* Encolar, Desencolar, Peek.
 
-Para probar la funcionalidad, utilice los siguientes formatos de placa estándar en Colombia:
+3.  **Modularización de Menús:**
+    * Se crearon controladores específicos (\`ManejoPila\`, \`ManejoCola\`) para no saturar la clase Main.
+    * Se agregó la clase \`Validaciones\` para proteger el sistema de entradas incorrectas (letras en campos numéricos).
 
-### 🚘 Caso 1: Automóvil
-* **Formato:** Tres letras y tres números (`AAA-123`).
-* **Ejemplo:** `MZR-987` (Mazda 2, Modelo 2022).
-* **Resultado esperado:** El sistema debe sumar el precio al promedio de autos.
+## 🧪 Guía de Pruebas (Test Drive)
 
-### 🏍️ Caso 2: Motocicleta (Cilindraje Bajo)
-* **Formato:** Tres letras, dos números y una letra (`XXX-11A`).
-* **Ejemplo:** `QWE-45C` (Yamaha NMax, 155cc).
-* **Resultado esperado:** Suma al promedio de motos. No aparece en el reporte especial.
+El flujo sugerido para evaluar esta entrega es:
 
-### 🏍️ Caso 3: Motocicleta (Alto Cilindraje)
-* **Ejemplo:** `DUC-88F` (Ducati Multistrada, 1200cc).
-* **Resultado esperado:** Suma al promedio y **DEBE** aparecer en el reporte de "Motos > 1000cc".
+1.  **Ingresar Datos (Opción 1 -> Manejo de Estructuras):**
+    * Vaya a **Pila** y registre 2 autos (Ej: Mazda, Renault).
+    * Vaya a **Cola** y registre 2 motos (Ej: Yamaha, Ducati > 1000cc).
+    
+2.  **Verificar Lógica LIFO/FIFO:**
+    * En la Pila, al dar "Mostrar", el último auto registrado debe salir primero.
+    * En la Cola, al dar "Mostrar", el primer auto registrado debe salir primero.
+
+3.  **Cálculos Generales (Opción 2 -> Requisitos Iniciales):**
+    * Desde el menú principal, seleccione la opción 2.
+    * El sistema recorrerá los nodos de la Pila y la Cola para calcular los promedios y generar el reporte de motos de alto cilindraje.
+
+## 📂 Arquitectura Actualizada
+* \`autopremium.mundo\`: Entidades + Clase Nodo.
+* \`autopremium.estructuras\`: Lógica de Pila y Cola.
+* \`autopremium.util\`: Validaciones de entrada.
+* \`autopremium.main\`: Menús y control de flujo.
