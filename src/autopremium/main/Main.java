@@ -1,6 +1,6 @@
 package autopremium.main;
 
-import autopremium.estructuras.ArbolBI;    // IMPORTANTE: Importar el Árbol
+import autopremium.estructuras.ArbolBI;
 import autopremium.estructuras.Cola;
 import autopremium.estructuras.ListaDoble;
 import autopremium.estructuras.Pila;
@@ -8,6 +8,8 @@ import autopremium.mundo.Automovil;
 import autopremium.mundo.Motocicleta;
 import autopremium.mundo.Nodo;
 import autopremium.util.Validaciones;
+// IMPORTANTE: Asegúrate de tener la clase ManejoArchivos creada en el paquete correcto
+import autopremium.main.ManejoArchivos; 
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -17,17 +19,18 @@ public class Main {
         Pila pilaAutos = new Pila();
         Cola colaMotos = new Cola();
         ListaDoble listaAutos = new ListaDoble();
-        ArbolBI arbolMotos = new ArbolBI(); // ¡NUEVO! Instancia del Árbol
+        ArbolBI arbolMotos = new ArbolBI(); 
 
         int opcion = 0;
         do {
-            // Actualizamos el menú para incluir la opción 4 (Árboles)
+            // Actualizamos el menú para incluir la opción 5 (Archivos) y 6 (Salir)
             String menu = "MENU PRINCIPAL - AUTOPREMIUM S.A.\n" +
                           "1. Manejo de estructuras (Pila y Cola)\n" +
                           "2. Requisitos iniciales de usuario (Estadísticas)\n" +
                           "3. Manejo de Lista Doble (Autos)\n" +
-                          "4. Manejo de Árbol Binario (Motos)\n" + // ¡NUEVO!
-                          "5. Terminar o salir\n" +              // Ahora salir es la 5
+                          "4. Manejo de Árbol Binario (Motos)\n" +
+                          "5. Gestión de Archivos (Persistencia)\n" + // ¡NUEVO!
+                          "6. Terminar o salir\n" +                   // Ahora salir es la 6
                           "--------------------------\n" +
                           "Seleccione una opción:";
             
@@ -59,21 +62,26 @@ public class Main {
                     ManejoListaDoble.menu(listaAutos);
                     break;
 
-                case 4: // ¡NUEVO CASO! ÁRBOL BINARIO
+                case 4: // ÁRBOL BINARIO
                     ManejoArbol.menu(arbolMotos);
                     break;
 
-                case 5: // SALIR (Cambiamos de 4 a 5)
-                    JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
+                case 5: // ¡NUEVO CASO! GESTIÓN DE ARCHIVOS
+                    // Se envían pilaAutos y listaAutos según tu requerimiento
+                    ManejoArchivos.menu(pilaAutos, listaAutos);
+                    break;
+
+                case 6: // SALIR (Cambiamos de 5 a 6)
+                    JOptionPane.showMessageDialog(null, "Finalizando Proyecto Autopremium.");
                     break;
 
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.");
             }
-        } while (opcion != 5); // El ciclo termina si elige 5
+        } while (opcion != 6); // El ciclo termina si elige 6
     }
 
-    // Método auxiliar completo (ESTE ES EL QUE TENÍAS, AQUÍ ESTÁ COMPLETO)
+    // Método auxiliar de estadísticas (se mantiene igual)
     private static void mostrarEstadisticas(Pila pila, Cola cola) {
         
         // 1. Promedio Autos
@@ -116,7 +124,7 @@ public class Main {
                          "Precio Promedio: $" + promMotos + "\n\n" +
                          "MOTOS DE ALTO CILINDRAJE (>1000cc):\n" +
                          (motosPotentes.isEmpty() ? "Ninguna registrada." : motosPotentes);
-                         
+                          
         JOptionPane.showMessageDialog(null, reporte);
     }
 }

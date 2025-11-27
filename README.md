@@ -1,26 +1,32 @@
-# 🚗 Proyecto Autopremium S.A. - Entrega 4 (Árboles)
+# 🚗 Proyecto Autopremium S.A. - Entrega Final
 
-> **Estado del Proyecto:** Implementación de Árboles Binarios.
-> **Rama Actual:** \`entrega-4-arboles\`
+> **Estado del Proyecto:** FINALIZADO.
+> **Rama Actual:** \`entrega-final-archivos\`
 
-Se añade la estructura no lineal (jerárquica) para la gestión de **Motocicletas**, cumpliendo con el requisito de utilizar la misma entidad que la Cola.
+Se implementa la capa de persistencia para garantizar que los datos de los **Automóviles** no se pierdan al cerrar la aplicación. Se utiliza un archivo plano \`autos.txt\` como base de datos.
 
-## 🏗️ Nuevas Características
+## 🏗️ Características Técnicas
 
-1.  **Clase ArbolBI:**
-    * Adaptada del material base para usar la clase \`Nodo\` universal.
-    * Métodos recursivos implementados: InOrden, PreOrden, PostOrden, Peso, Altura, Contar Nodos, Ancestros, Hermanos, Insertar Hoja.
+1.  **Clase Genérica \`Archivo\`**:
+    * Implementación robusta con \`java.nio\`.
+    * Uso de \`try-with-resources\` para gestión de memoria.
+    * Atomicidad en escritura: Usa archivos temporales (\`.tmp\`) para evitar corrupción de datos al actualizar.
 
-2.  **Menú Recursivo:**
-    * Clase: \`ManejoArbol\`
-    * 15 opciones disponibles para explorar las propiedades del árbol.
+2.  **Clase \`CRUDAutomovil\`**:
+    * **Create:** Escribe nuevos autos al final del archivo.
+    * **Read:** Lee y parsea (Deserializa) línea por línea.
+    * **Update:** Modifica precio buscando por ID (Placa).
+    * **Delete:** Elimina registros reescribiendo el archivo.
+    * **Integración:** Métodos especiales \`cargarAListaDoble\` y \`cargarAPila\` para llenar las estructuras dinámicas desde el disco.
 
-## 🧪 Cómo probar el Árbol
+3.  **Formato de Datos**:
+    * \`PLACA;MARCA;MODELO;PRECIO;PUERTAS\`
 
-1.  Entre a la **Opción 4** del menú principal.
-2.  Seleccione la opción **11 (Crear)**.
-3.  Ingrese la Raíz (Ej: Moto Yamaha).
-4.  El sistema le preguntará si quiere hijo Izquierdo. Diga SÍ y cree otra moto.
-5.  Diga NO al hijo Derecho.
-6.  Use la opción **1 (InOrden)** para ver cómo se imprimen los datos.
-7.  Use la opción **9 (Altura)** para verificar la profundidad.
+## 🧪 Pruebas Finales
+
+1.  Vaya a **Opción 5 (Archivos)** -> **1. Crear Registro**. Guarde un auto.
+2.  Cierre el programa completamente.
+3.  Vuelva a abrirlo.
+4.  Vaya a **Opción 5** -> **2. Leer Todos**. ¡El auto debe estar ahí!
+5.  Use **Opción 6 (Cargar a Lista)**.
+6.  Vuelva al menú principal -> **Opción 3 (Lista Doble)** -> **2. Mostrar**. El auto del archivo ahora debe estar en la lista en memoria.
