@@ -1,46 +1,28 @@
-# 🚗 Proyecto Autopremium S.A. - Entrega 2
+# 🚗 Proyecto Autopremium S.A. - Entrega 3 (Lista Doble)
 
-> **Estado del Proyecto:** Estructuras de Datos Lineales (Pilas y Colas)
-> **Rama Actual:** \`entrega-2-pilas-colas\`
+> **Estado del Proyecto:** Implementación de Lista Doblemente Enlazada.
+> **Rama Actual:** \`entrega-3-lista-doble\`
 
-En esta segunda entrega, el sistema evoluciona de cálculos simples a **almacenamiento en memoria dinámica** utilizando punteros y nodos. Se implementan las estructuras solicitadas para la gestión eficiente de los vehículos.
+En este evento evaluativo, se incorpora la gestión avanzada de **Automóviles** mediante una lista que permite navegación en ambos sentidos (Inicio a Fin y Fin a Inicio).
 
-## 🏗️ Nuevas Características
+## 📋 Características Técnicas
 
-1.  **Clase Nodo Universal:**
-    * Ubicación: \`autopremium.mundo.Nodo\`
-    * Función: Contenedor genérico (\`Object\`) que permite almacenar tanto Automóviles como Motocicletas.
+1.  **Clase \`ListaDoble\`**:
+    * Implementada desde cero (sin \`LinkedList\` de Java).
+    * Uso de punteros \`ligaIzquierda\` (Anterior) y \`ligaDerecha\` (Siguiente) de la clase \`Nodo\`.
+    * Métodos implementados: Insertar (Inicio, Fin, Antes, Después), Eliminar (Inicio, Fin, Específico), Mostrar (Normal e Inverso).
 
-2.  **Estructuras de Datos Implementadas:**
-    * **PILA (Stack):** Implementada para **Automóviles**.
-        * *Comportamiento:* LIFO (Last In, First Out - Último en entrar, primero en salir).
-        * *Métodos:* Push, Pop, Peek, IsEmpty.
-    * **COLA (Queue):** Implementada para **Motocicletas**.
-        * *Comportamiento:* FIFO (First In, First Out - Primero en entrar, primero en salir).
-        * *Métodos:* Encolar, Desencolar, Peek.
+2.  **Validaciones**:
+    * Se utiliza la clase \`Validaciones\` para garantizar que los precios y modelos sean numéricos.
+    * Se valida que la lista no esté vacía antes de eliminar o imprimir.
 
-3.  **Modularización de Menús:**
-    * Se crearon controladores específicos (\`ManejoPila\`, \`ManejoCola\`) para no saturar la clase Main.
-    * Se agregó la clase \`Validaciones\` para proteger el sistema de entradas incorrectas (letras en campos numéricos).
+3.  **Tipo de Dato**:
+    * Se cumple estrictamente el requisito de usar **Automóviles** (mismo tipo que la Pila).
 
-## 🧪 Guía de Pruebas (Test Drive)
+## 🧪 Pruebas Sugeridas
 
-El flujo sugerido para evaluar esta entrega es:
-
-1.  **Ingresar Datos (Opción 1 -> Manejo de Estructuras):**
-    * Vaya a **Pila** y registre 2 autos (Ej: Mazda, Renault).
-    * Vaya a **Cola** y registre 2 motos (Ej: Yamaha, Ducati > 1000cc).
-    
-2.  **Verificar Lógica LIFO/FIFO:**
-    * En la Pila, al dar "Mostrar", el último auto registrado debe salir primero.
-    * En la Cola, al dar "Mostrar", el primer auto registrado debe salir primero.
-
-3.  **Cálculos Generales (Opción 2 -> Requisitos Iniciales):**
-    * Desde el menú principal, seleccione la opción 2.
-    * El sistema recorrerá los nodos de la Pila y la Cola para calcular los promedios y generar el reporte de motos de alto cilindraje.
-
-## 📂 Arquitectura Actualizada
-* \`autopremium.mundo\`: Entidades + Clase Nodo.
-* \`autopremium.estructuras\`: Lógica de Pila y Cola.
-* \`autopremium.util\`: Validaciones de entrada.
-* \`autopremium.main\`: Menús y control de flujo.
+1.  Ingrese al Menú Principal -> Opción 3.
+2.  Use "Insertar de primero" y agregue un Mazda.
+3.  Use "Insertar de último" y agregue un Renault.
+4.  Use "Insertar en medio" (Antes de Renault) y agregue un Ford.
+5.  Use la opción **"Mostrar Inverso"** para verificar que los punteros hacia atrás funcionan (Debe salir: Renault -> Ford -> Mazda).

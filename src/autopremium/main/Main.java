@@ -1,6 +1,7 @@
 package autopremium.main;
 
 import autopremium.estructuras.Cola;
+import autopremium.estructuras.ListaDoble; // IMPORTANTE: Importar la nueva estructura
 import autopremium.estructuras.Pila;
 import autopremium.mundo.Automovil;
 import autopremium.mundo.Motocicleta;
@@ -12,23 +13,25 @@ public class Main {
 
     public static void main(String[] args) {
         // --- INSTANCIAS ÚNICAS DE LAS ESTRUCTURAS ---
-        // Se crean aquí para que vivan durante toda la ejecución del programa
         Pila pilaAutos = new Pila();
         Cola colaMotos = new Cola();
+        ListaDoble listaAutos = new ListaDoble(); // ¡NUEVO! La Lista para la Entrega 3
 
         int opcion = 0;
         do {
+            // Actualizamos el menú para incluir la opción 3
             String menu = "MENU PRINCIPAL - AUTOPREMIUM S.A.\n" +
                           "1. Manejo de estructuras (Pila y Cola)\n" +
                           "2. Requisitos iniciales de usuario (Estadísticas)\n" +
-                          "3. Terminar o salir\n" +
+                          "3. Manejo de Lista Doble (Autos)\n" + // ¡NUEVA OPCIÓN!
+                          "4. Terminar o salir\n" +              // Ahora salir es la 4
                           "--------------------------\n" +
                           "Seleccione una opción:";
             
             opcion = Validaciones.leerEntero(menu);
 
             switch (opcion) {
-                case 1: // SUB-MENÚ DE ESTRUCTURAS
+                case 1: // SUB-MENÚ DE ESTRUCTURAS (Pila y Cola)
                     int subOpcion = 0;
                     do {
                         String subMenu = "MANEJO DE ESTRUCTURAS\n" +
@@ -48,19 +51,22 @@ public class Main {
                 case 2: // REQUISITOS (Cálculos recorriendo las estructuras)
                     mostrarEstadisticas(pilaAutos, colaMotos);
                     break;
+                    
+                case 3: // ¡NUEVO CASO! Manejo de Lista Doble
+                    ManejoListaDoble.menu(listaAutos);
+                    break;
 
-                case 3:
+                case 4: // SALIR (Cambiamos de 3 a 4)
                     JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
                     break;
 
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.");
             }
-        } while (opcion != 3);
+        } while (opcion != 4); // El ciclo termina si elige 4
     }
 
-    // Método auxiliar para calcular promedios recorriendo los Nodos
-    // Cumple con: "elabora los requisitos... en las pilas y colas con los datos adjudicados"
+    // Método auxiliar completo (Tal cual lo tenías, sin borrar nada)
     private static void mostrarEstadisticas(Pila pila, Cola cola) {
         
         // 1. Promedio Autos
