@@ -1,7 +1,8 @@
 package autopremium.main;
 
+import autopremium.estructuras.ArbolBI;    // IMPORTANTE: Importar el Árbol
 import autopremium.estructuras.Cola;
-import autopremium.estructuras.ListaDoble; // IMPORTANTE: Importar la nueva estructura
+import autopremium.estructuras.ListaDoble;
 import autopremium.estructuras.Pila;
 import autopremium.mundo.Automovil;
 import autopremium.mundo.Motocicleta;
@@ -15,16 +16,18 @@ public class Main {
         // --- INSTANCIAS ÚNICAS DE LAS ESTRUCTURAS ---
         Pila pilaAutos = new Pila();
         Cola colaMotos = new Cola();
-        ListaDoble listaAutos = new ListaDoble(); // ¡NUEVO! La Lista para la Entrega 3
+        ListaDoble listaAutos = new ListaDoble();
+        ArbolBI arbolMotos = new ArbolBI(); // ¡NUEVO! Instancia del Árbol
 
         int opcion = 0;
         do {
-            // Actualizamos el menú para incluir la opción 3
+            // Actualizamos el menú para incluir la opción 4 (Árboles)
             String menu = "MENU PRINCIPAL - AUTOPREMIUM S.A.\n" +
                           "1. Manejo de estructuras (Pila y Cola)\n" +
                           "2. Requisitos iniciales de usuario (Estadísticas)\n" +
-                          "3. Manejo de Lista Doble (Autos)\n" + // ¡NUEVA OPCIÓN!
-                          "4. Terminar o salir\n" +              // Ahora salir es la 4
+                          "3. Manejo de Lista Doble (Autos)\n" +
+                          "4. Manejo de Árbol Binario (Motos)\n" + // ¡NUEVO!
+                          "5. Terminar o salir\n" +              // Ahora salir es la 5
                           "--------------------------\n" +
                           "Seleccione una opción:";
             
@@ -52,21 +55,25 @@ public class Main {
                     mostrarEstadisticas(pilaAutos, colaMotos);
                     break;
                     
-                case 3: // ¡NUEVO CASO! Manejo de Lista Doble
+                case 3: // LISTA DOBLE
                     ManejoListaDoble.menu(listaAutos);
                     break;
 
-                case 4: // SALIR (Cambiamos de 3 a 4)
+                case 4: // ¡NUEVO CASO! ÁRBOL BINARIO
+                    ManejoArbol.menu(arbolMotos);
+                    break;
+
+                case 5: // SALIR (Cambiamos de 4 a 5)
                     JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
                     break;
 
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.");
             }
-        } while (opcion != 4); // El ciclo termina si elige 4
+        } while (opcion != 5); // El ciclo termina si elige 5
     }
 
-    // Método auxiliar completo (Tal cual lo tenías, sin borrar nada)
+    // Método auxiliar completo (ESTE ES EL QUE TENÍAS, AQUÍ ESTÁ COMPLETO)
     private static void mostrarEstadisticas(Pila pila, Cola cola) {
         
         // 1. Promedio Autos

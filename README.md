@@ -1,28 +1,26 @@
-# 🚗 Proyecto Autopremium S.A. - Entrega 3 (Lista Doble)
+# 🚗 Proyecto Autopremium S.A. - Entrega 4 (Árboles)
 
-> **Estado del Proyecto:** Implementación de Lista Doblemente Enlazada.
-> **Rama Actual:** \`entrega-3-lista-doble\`
+> **Estado del Proyecto:** Implementación de Árboles Binarios.
+> **Rama Actual:** \`entrega-4-arboles\`
 
-En este evento evaluativo, se incorpora la gestión avanzada de **Automóviles** mediante una lista que permite navegación en ambos sentidos (Inicio a Fin y Fin a Inicio).
+Se añade la estructura no lineal (jerárquica) para la gestión de **Motocicletas**, cumpliendo con el requisito de utilizar la misma entidad que la Cola.
 
-## 📋 Características Técnicas
+## 🏗️ Nuevas Características
 
-1.  **Clase \`ListaDoble\`**:
-    * Implementada desde cero (sin \`LinkedList\` de Java).
-    * Uso de punteros \`ligaIzquierda\` (Anterior) y \`ligaDerecha\` (Siguiente) de la clase \`Nodo\`.
-    * Métodos implementados: Insertar (Inicio, Fin, Antes, Después), Eliminar (Inicio, Fin, Específico), Mostrar (Normal e Inverso).
+1.  **Clase ArbolBI:**
+    * Adaptada del material base para usar la clase \`Nodo\` universal.
+    * Métodos recursivos implementados: InOrden, PreOrden, PostOrden, Peso, Altura, Contar Nodos, Ancestros, Hermanos, Insertar Hoja.
 
-2.  **Validaciones**:
-    * Se utiliza la clase \`Validaciones\` para garantizar que los precios y modelos sean numéricos.
-    * Se valida que la lista no esté vacía antes de eliminar o imprimir.
+2.  **Menú Recursivo:**
+    * Clase: \`ManejoArbol\`
+    * 15 opciones disponibles para explorar las propiedades del árbol.
 
-3.  **Tipo de Dato**:
-    * Se cumple estrictamente el requisito de usar **Automóviles** (mismo tipo que la Pila).
+## 🧪 Cómo probar el Árbol
 
-## 🧪 Pruebas Sugeridas
-
-1.  Ingrese al Menú Principal -> Opción 3.
-2.  Use "Insertar de primero" y agregue un Mazda.
-3.  Use "Insertar de último" y agregue un Renault.
-4.  Use "Insertar en medio" (Antes de Renault) y agregue un Ford.
-5.  Use la opción **"Mostrar Inverso"** para verificar que los punteros hacia atrás funcionan (Debe salir: Renault -> Ford -> Mazda).
+1.  Entre a la **Opción 4** del menú principal.
+2.  Seleccione la opción **11 (Crear)**.
+3.  Ingrese la Raíz (Ej: Moto Yamaha).
+4.  El sistema le preguntará si quiere hijo Izquierdo. Diga SÍ y cree otra moto.
+5.  Diga NO al hijo Derecho.
+6.  Use la opción **1 (InOrden)** para ver cómo se imprimen los datos.
+7.  Use la opción **9 (Altura)** para verificar la profundidad.
